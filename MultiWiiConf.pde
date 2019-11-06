@@ -26,7 +26,7 @@ Textlabel txtlblRates,txtlblRev,TxtLeftW,TxtRightW,TxtRevW,TxtRevR,TxtRates,TxtR
           TxtMids,TxtMin,TxtMax,TxtSLeft,TxtSNick,TxtSRight,TxtInfo,TxtInfo1,TxtInfo2,
           TxtInfo3,TxtInfo4,TxtAux,Links;
 
-ListBox commListbox,baudListbox;
+ScrollableList commListbox,baudListbox;
 
 static int CHECKBOXITEMS=0;
 static int PIDITEMS=10;
@@ -418,7 +418,8 @@ void setup() {
   g_graph  = new cGraph(xGraph+110,yGraph, 480, 200);
 
   // Baud list items
-  baudListbox = controlP5.addListBox("baudList",5,95+tabHeight,110,240).moveTo("Config"); // make a listbox with available Baudrates
+  baudListbox = controlP5.addScrollableList("baudList",5,95+tabHeight,110,240).moveTo("Config"); // make a listbox with available Baudrates
+  baudListbox.setType(ControlP5.LIST);
   baudListbox.getCaptionLabel().set("BAUD_RATE");
   baudListbox.setColorBackground(red_);
   baudListbox.setBarHeight(17);
@@ -432,7 +433,8 @@ void setup() {
   baudListbox.addItem("115200",115200);
 
   // make a listbox and populate it with the available comm ports
-  commListbox = controlP5.addListBox("portComList",5,105+tabHeight,110,120);
+  commListbox = controlP5.addScrollableList("portComList",5,105+tabHeight,110,120);
+  commListbox.setType(ControlP5.LIST);
   commListbox.getCaptionLabel().set("PORT COM");
   commListbox.setColorBackground(red_);
   commListbox.setBarHeight(17);
@@ -2664,8 +2666,12 @@ void DEBUG4(boolean theFlag) {debug4Graph = theFlag;}
 
 String ActiveTab="default";
 public void controlEvent(ControlEvent theEvent) {
-  if (theEvent.isGroup()) if (theEvent.name()=="portComList") InitSerial(theEvent.group().getValue()); // initialize the serial port selected
-  if (theEvent.isGroup()) if (theEvent.name()=="baudList") GUI_BaudRate=(int)(theEvent.group().getValue());  // Set GUI_BaudRate to selected.
+  if (theEvent.name()=="portComList") {
+    InitSerial(theEvent.getValue()); // initialize the serial port selected
+  }
+  if (theEvent.name()=="baudList") {
+    GUI_BaudRate=(int)(theEvent.getValue());  // Set GUI_BaudRate to selected.
+  }
   if (theEvent.isTab()) {
     ActiveTab= theEvent.getTab().getName();  println("Switched to: "+ActiveTab);
     int tabN= +theEvent.getTab().getId();
