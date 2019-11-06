@@ -2670,7 +2670,8 @@ public void controlEvent(ControlEvent theEvent) {
     InitSerial(theEvent.getValue()); // initialize the serial port selected
   }
   if (theEvent.name()=="baudList") {
-    GUI_BaudRate=(int)(theEvent.getValue());  // Set GUI_BaudRate to selected.
+    GUI_BaudRate = (int)controlP5.get(ScrollableList.class, "baudList").getItem(int(theEvent.getValue())).get("value");
+    // GUI_BaudRate=(int)(theEvent.getValue());  // Set GUI_BaudRate to selected.
   }
   if (theEvent.isTab()) {
     ActiveTab= theEvent.getTab().getName();  println("Switched to: "+ActiveTab);
