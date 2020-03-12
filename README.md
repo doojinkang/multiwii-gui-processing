@@ -1,10 +1,14 @@
-# multiwii-gui-processing for Processing 3.3 and later and ControlP5 2.2.5
-# ***WORK IN PROGRESS***
+# Multiwii GUI
 
-Multiwii is a very common and respected flight controller, trully father of many version as CleanFligth, BetaFligth, iNAv and others.
-But our beloved GUI was very outdated, this fork aims to fix that.
+## Envioronment
 
-Currently working with:
+- Processing 3.5.3
+- ControlP5 2.2.6
+- Tested under Ubuntu 16.04, MacOS High Sierra
 
-Hardware: Arduino Mega, MPU6050, HMC5883L and BMP180.
-Software: Processing 3.3 and ControlP5 release 2.2.5
+## Update History
+
+- COMM PORT List uses ScrollableList instead of ListBox. (ListBox is deprecated)
+- Fix BaudRate set wrong
+
+
